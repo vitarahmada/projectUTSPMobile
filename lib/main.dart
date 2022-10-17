@@ -17,6 +17,8 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
+        backgroundColor:
+            Colors.orangeAccent, //memberi warna background pada title appBar
         title: new Text("DATA PELANGGAN APOTEK"),
       ),
     );
