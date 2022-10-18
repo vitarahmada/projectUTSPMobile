@@ -2,9 +2,12 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import './detail.dart';
+import './adddata.dart';
 
 void main() {
   runApp(new MaterialApp(
+    debugShowCheckedModeBanner: false, //menghilangkan show debug
     title: "CRUD Data Obat",
     home: new Home(),
   ));
@@ -32,8 +35,17 @@ class _HomeState extends State<Home> {
             255, 230, 168, 87), //memberi warna background pada title appBar
         title: new Text("DATA OBAT"),
       ),
-
-      backgroundColor: Color.fromARGB(255, 185, 176, 163),
+      floatingActionButton: new FloatingActionButton(
+        child: new Icon(
+          Icons.add,
+        ),
+        onPressed: () => Navigator.of(context).push(new MaterialPageRoute(
+          builder: (BuildContext context) =>
+              new AddData(), //membuka halaman untuk menambah data
+        )),
+      ),
+      backgroundColor:
+          Color.fromARGB(255, 252, 228, 194), //warna background pada body
 
       //memasukkan data ke dalam list
       body: new FutureBuilder<List>(
@@ -72,11 +84,18 @@ class ItemList extends StatelessWidget {
       itemBuilder: (context, i) {
         return new Container(
           padding: const EdgeInsets.all(5.0),
-          child: new Card(
-            child: new ListTile(
-              title: new Text(list[i]['nama_obat']),
-              leading: new Icon(Icons.widgets),
-              subtitle: new Text("Stock : ${list[i]['jumlah_stok']}"),
+          child: new GestureDetector(
+            onTap: () => Navigator.of(context).push(
+                //jika di tap maka akan membuka halaman detail
+                new MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        new Detail(list: list, index: i))),
+            child: new Card(
+              child: new ListTile(
+                title: new Text(list[i]['nama_obat']),
+                leading: new Icon(Icons.widgets),
+                subtitle: new Text("Stock : ${list[i]['jumlah_stok']}"),
+              ),
             ),
           ),
         );
