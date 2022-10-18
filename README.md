@@ -1,6 +1,10 @@
-# crud_data_pelanggan_apotek
+# UTS PEMROGRAMAN MOBILE
 
-A new Flutter project.
+Nama  : Vita Rahmada
+
+NIM   : 20051204003
+
+Kelas : TI A 2020
 
 ## Getting Started
 
