@@ -33,7 +33,7 @@ class _HomeState extends State<Home> {
         title: new Text("DATA OBAT"),
       ),
 
-      backgroundColor: Color.fromARGB(255, 241, 221, 195),
+      backgroundColor: Color.fromARGB(255, 185, 176, 163),
 
       //memasukkan data ke dalam list
       body: new FutureBuilder<List>(
