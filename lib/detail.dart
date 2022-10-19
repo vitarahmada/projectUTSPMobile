@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './editdata.dart';
 
 class Detail extends StatefulWidget {
   //variabel untuk menampung nama obat yang di klik
@@ -11,6 +12,19 @@ class Detail extends StatefulWidget {
 }
 
 class _DetailState extends State<Detail> {
+  void confirm() {
+    AlertDialog alertDialog = new AlertDialog(
+      content: new Text(
+          "Apakah Anda yakin untuk menghapus data'${widget.list[widget.index]['nama_obat']}'"),
+      actions: <Widget>[
+        new ElevatedButton(onPressed: () {}, child: new Text("IYA HAPUS")),
+        new ElevatedButton(onPressed: () {}, child: new Text("BATAL"))
+      ],
+    );
+
+    showDialog(context: context, builder: (context) => alertDialog);
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -68,12 +82,18 @@ class _DetailState extends State<Detail> {
                   new ElevatedButton(
                     child: new Text("EDIT"),
                     style: ElevatedButton.styleFrom(primary: Colors.black),
-                    onPressed: () {},
+                    onPressed: () =>
+                        Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (BuildContext context) => new EditData(
+                        list: widget.list,
+                        index: widget.index,
+                      ),
+                    )),
                   ),
                   new ElevatedButton(
                     child: new Text("DELETE"),
                     style: ElevatedButton.styleFrom(primary: Colors.black),
-                    onPressed: () {},
+                    onPressed: () => confirm(), //menjalankan method confirm
                   )
                 ],
               )

@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import './main.dart';
+import 'package:http/http.dart' as http;
 
-class AddData extends StatefulWidget {
+class EditData extends StatefulWidget {
+  final list;
+  final index;
+  EditData({this.list, this.index});
+
   @override
-  State<AddData> createState() => _AddDataState();
+  State<EditData> createState() => _EditDataState();
 }
 
-class _AddDataState extends State<AddData> {
-  TextEditingController controllerKode = new TextEditingController();
-  TextEditingController controllerNama = new TextEditingController();
-  TextEditingController controllerSatuan = new TextEditingController();
-  TextEditingController controllerStock = new TextEditingController();
-  TextEditingController controllerHargaBeli = new TextEditingController();
-  TextEditingController controllerHargaJual = new TextEditingController();
+class _EditDataState extends State<EditData> {
+  TextEditingController controllerKode = TextEditingController();
+  TextEditingController controllerNama = TextEditingController();
+  TextEditingController controllerSatuan = TextEditingController();
+  TextEditingController controllerStock = TextEditingController();
+  TextEditingController controllerHargaBeli = TextEditingController();
+  TextEditingController controllerHargaJual = TextEditingController();
 
-  void AddData() {
-    String url = "http://10.0.2.2:080/data_obat/adddata.php";
+  void editData() {
+    String url = "http://10.0.2.2:080/data_obat/editdata.php";
 
     http.post(Uri.parse(url), body: {
+      "id": widget.list[widget.index]['id'],
       "kodeobat": controllerKode.text,
       "namaobat": controllerNama.text,
       "satuan": controllerSatuan.text,
@@ -29,12 +34,24 @@ class _AddDataState extends State<AddData> {
   }
 
   @override
+  void initState() {
+    //mengisi controller dengan data
+    controllerKode.text = widget.list[widget.index]['kode_obat'];
+    controllerNama.text = widget.list[widget.index]['nama_obat'];
+    controllerSatuan.text = widget.list[widget.index]['satuan'];
+    controllerStock.text = widget.list[widget.index]['jumlah_stok'];
+    controllerHargaBeli.text = widget.list[widget.index]['harga_beli'];
+    controllerHargaJual.text = widget.list[widget.index]['harga_jual'];
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
         backgroundColor: Color.fromARGB(
             255, 230, 168, 87), //memberi warna background pada title appBar
-        title: new Text("ADD DATA"),
+        title: new Text("EDIT DATA"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -78,21 +95,19 @@ class _AddDataState extends State<AddData> {
                 new ElevatedButton(
                     onPressed: () {
                       //jika ditekan maka data akan bertambah
-                      AddData();
+                      editData();
                       //setelah klik AddData maka akan kembali ke halaman utama
                       //dan data baru akan muncul di halaman utama
                       Navigator.of(context).push(new MaterialPageRoute(
                         builder: (BuildContext context) => new Home(),
                       ));
                     },
-                    child: new Text("ADD DATA"))
+                    child: new Text("EDIT DATA"))
               ],
             ),
           ],
         ),
       ),
-      backgroundColor:
-          Color.fromARGB(255, 252, 228, 194), //warna background pada body
     );
   }
 }
