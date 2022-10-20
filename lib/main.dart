@@ -35,7 +35,9 @@ class _HomeState extends State<Home> {
             255, 230, 168, 87), //memberi warna background pada title appBar
         title: new Text("DATA OBAT"),
       ),
+      //membuat button untuk menambahkan data
       floatingActionButton: new FloatingActionButton(
+        backgroundColor: Colors.orangeAccent,
         child: new Icon(
           Icons.add,
         ),
@@ -93,7 +95,7 @@ class ItemList extends StatelessWidget {
             child: new Card(
               child: new ListTile(
                 title: new Text(list[i]['nama_obat']),
-                leading: new Icon(Icons.widgets),
+                leading: new Icon(Icons.local_pharmacy_sharp),
                 subtitle: new Text("Stock : ${list[i]['jumlah_stok']}"),
               ),
             ),

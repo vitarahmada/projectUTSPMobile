@@ -76,16 +76,18 @@ class _AddDataState extends State<AddData> {
                   padding: const EdgeInsets.all(10.0),
                 ),
                 new ElevatedButton(
-                    onPressed: () {
-                      //jika ditekan maka data akan bertambah
-                      AddData();
-                      //setelah klik AddData maka akan kembali ke halaman utama
-                      //dan data baru akan muncul di halaman utama
-                      Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (BuildContext context) => new Home(),
-                      ));
-                    },
-                    child: new Text("ADD DATA"))
+                  onPressed: () {
+                    //jika ditekan maka data akan bertambah
+                    AddData();
+                    //setelah klik AddData maka akan kembali ke halaman utama
+                    //dan data baru akan muncul di halaman utama
+                    Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (BuildContext context) => new Home(),
+                    ));
+                  },
+                  child: new Text("ADD DATA"),
+                  style: ElevatedButton.styleFrom(primary: Colors.orangeAccent),
+                )
               ],
             ),
           ],

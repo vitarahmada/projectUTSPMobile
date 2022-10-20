@@ -53,8 +53,10 @@ class _EditDataState extends State<EditData> {
             255, 230, 168, 87), //memberi warna background pada title appBar
         title: new Text("EDIT DATA"),
       ),
+      backgroundColor:
+          Color.fromARGB(255, 252, 228, 194), //warna background pada bo
       body: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(15.0),
         child: ListView(
           children: <Widget>[
             new Column(
@@ -93,16 +95,18 @@ class _EditDataState extends State<EditData> {
                   padding: const EdgeInsets.all(10.0),
                 ),
                 new ElevatedButton(
-                    onPressed: () {
-                      //jika ditekan maka data akan bertambah
-                      editData();
-                      //setelah klik AddData maka akan kembali ke halaman utama
-                      //dan data baru akan muncul di halaman utama
-                      Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (BuildContext context) => new Home(),
-                      ));
-                    },
-                    child: new Text("EDIT DATA"))
+                  onPressed: () {
+                    //jika ditekan maka data akan bertambah
+                    editData();
+                    //setelah klik AddData maka akan kembali ke halaman utama
+                    //dan data baru akan muncul di halaman utama
+                    Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (BuildContext context) => new Home(),
+                    ));
+                  },
+                  child: new Text("EDIT DATA"),
+                  style: ElevatedButton.styleFrom(primary: Colors.orangeAccent),
+                )
               ],
             ),
           ],

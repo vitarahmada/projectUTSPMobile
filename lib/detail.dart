@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import './editdata.dart';
+import 'package:http/http.dart' as http;
+import './main.dart';
 
 class Detail extends StatefulWidget {
   //variabel untuk menampung nama obat yang di klik
@@ -12,13 +14,33 @@ class Detail extends StatefulWidget {
 }
 
 class _DetailState extends State<Detail> {
+  void deleteData() {
+    String url = "http://10.0.2.2:080/data_obat/deletedata.php";
+
+    http.post(Uri.parse(url), body: {'id': widget.list[widget.index]['id']});
+  }
+
   void confirm() {
     AlertDialog alertDialog = new AlertDialog(
       content: new Text(
-          "Apakah Anda yakin untuk menghapus data'${widget.list[widget.index]['nama_obat']}'"),
+          "Apakah Anda yakin untuk menghapus data '${widget.list[widget.index]['nama_obat']}'?"),
       actions: <Widget>[
-        new ElevatedButton(onPressed: () {}, child: new Text("IYA HAPUS")),
-        new ElevatedButton(onPressed: () {}, child: new Text("BATAL"))
+        new ElevatedButton(
+          onPressed: () {
+            deleteData();
+            //setelah klik tombol hapus, data akan terhapus dan kembali ke tampilan halaman utama
+            Navigator.of(context).push(new MaterialPageRoute(
+              builder: (BuildContext context) => new Home(),
+            ));
+          },
+          child: new Text("IYA"),
+          style: ElevatedButton.styleFrom(primary: Colors.orangeAccent),
+        ),
+        new ElevatedButton(
+          onPressed: () => Navigator.pop(context),
+          child: new Text("BATAL"),
+          style: ElevatedButton.styleFrom(primary: Colors.orangeAccent),
+        ),
       ],
     );
 
@@ -37,6 +59,9 @@ class _DetailState extends State<Detail> {
       body: new Container(
         height: 300.0,
         padding: const EdgeInsets.all(20.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+        ),
         child: new Card(
           child: new Center(
               child: new Column(
@@ -51,25 +76,26 @@ class _DetailState extends State<Detail> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              new Text(""),
               new Text(
                 "Kode Obat : ${widget.list[widget.index]['kode_obat']}",
-                style: new TextStyle(fontSize: 18.0),
+                style: new TextStyle(fontSize: 15.0),
               ),
               new Text(
                 "Satuan : ${widget.list[widget.index]['satuan']}",
-                style: new TextStyle(fontSize: 18.0),
+                style: new TextStyle(fontSize: 15.0),
               ),
               new Text(
                 "Stock : ${widget.list[widget.index]['jumlah_stok']}",
-                style: new TextStyle(fontSize: 18.0),
+                style: new TextStyle(fontSize: 15.0),
               ),
               new Text(
                 "Harga Beli : ${widget.list[widget.index]['harga_beli']}",
-                style: new TextStyle(fontSize: 18.0),
+                style: new TextStyle(fontSize: 15.0),
               ),
               new Text(
                 "Harga Jual : ${widget.list[widget.index]['harga_jual']}",
-                style: new TextStyle(fontSize: 18.0),
+                style: new TextStyle(fontSize: 15.0),
               ),
               new Padding(
                 padding: const EdgeInsets.only(top: 30.0),
@@ -81,7 +107,8 @@ class _DetailState extends State<Detail> {
                 children: <Widget>[
                   new ElevatedButton(
                     child: new Text("EDIT"),
-                    style: ElevatedButton.styleFrom(primary: Colors.black),
+                    style:
+                        ElevatedButton.styleFrom(primary: Colors.orangeAccent),
                     onPressed: () =>
                         Navigator.of(context).push(new MaterialPageRoute(
                       builder: (BuildContext context) => new EditData(
@@ -92,7 +119,8 @@ class _DetailState extends State<Detail> {
                   ),
                   new ElevatedButton(
                     child: new Text("DELETE"),
-                    style: ElevatedButton.styleFrom(primary: Colors.black),
+                    style:
+                        ElevatedButton.styleFrom(primary: Colors.orangeAccent),
                     onPressed: () => confirm(), //menjalankan method confirm
                   )
                 ],
